@@ -1,0 +1,25 @@
+<!-- 
+ -->
+<div ng-controller="inventoryLevelsController as ctrl">
+	<div class="panel panel-primary">
+		<!-- header -->
+		<div class="panel-heading">
+			<label class="controller-title"><i class="fa fa-cubes fa-2x"></i> Inventory Levels</label>
+		</div>
+		<!-- body -->
+	  	<div class="panel-body">
+	  		<form role="form" name="form">
+	  			<tabset>
+				    <tab ng-repeat="tab in tabs" 
+				    	ng-click="update(tab.path)" 
+				    	heading="{{tab.label}}"
+				    	active="tab.active">
+				    </tab>
+				</tabset>
+			</form>
+		</div>
+		<!-- footer -->
+		<div class="panel-footer">
+		</div>
+	</div>
+</div>

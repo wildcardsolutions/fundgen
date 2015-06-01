@@ -1,0 +1,126 @@
+
+<div ng-controller="requestMembershipCardsController as ctrl">
+	<div class="panel panel-primary">
+		<!-- header -->
+		<div class="panel-heading">
+			<label class="controller-title"><i class="fa fa-share fa-2x"></i> Request Membership Cards</label>
+		</div>
+		<!-- body -->
+	  	<div class="panel-body">
+	  		<form role="form" name="form">
+	  			<div class="form-group">
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="cardType">Card Type</label>
+							</span>
+							<div class="input-group col-sm-4">
+								<select name="cardType" 
+										id="cardType" 
+										ng-change="update()"
+										class="form-control input-sm" 
+										ng-model="request.cardType"
+										ng-options="cardType.id as cardType.name for cardType in cardTypes | filter : {deleted : false}" 
+										required >
+								</select> 
+							</div>	
+							<span class="error col-sm-2" 
+									ng-show="!form.cardType.$pristine && form.cardType.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="numberOfCards">Number of cards to request</label>
+							</span>
+							<div class="input-group col-sm-4">
+								<div class="input-group-addon">{{prefix}}</div>
+								<input type="number" 
+										placeholder="Enter number of cards to request"
+										name="numberOfCards" 
+										id="numberOfCards" 
+										ng-model="request.numberOfCards" 
+										ng-enter="doSomething()"
+										class="form-control input-sm" 
+										ng-required="true" 
+										min="1" 
+										max="9999999">
+							</div>
+							<span class="error col-sm-3" 
+									ng-show="!form.numberOfCards.$pristine && form.numberOfCards.$error.required">Required</span>
+							<span class="error col-sm-3" 
+									ng-show="form.numberOfCards.$error.number">Not valid number.</span>
+							<span class="error col-sm-3" 
+									ng-show="form.numberOfCards.$error.max ">Exceeded maximum value.</span>
+						</span>
+					</div>
+					
+					<br/>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-9">
+								<!--  -->
+								<button ng-disabled="form.$invalid" ng-click="ctrl.request(request)" type="button" class="btn btn-primary btn-large">
+									<i class="fa fa-plus"></i>&nbsp;&nbsp;Add to Request
+								</button>
+								
+								<!--  -->
+								<button ng-click="ctrl.reset()" type="button" class="btn btn-warning btn-large">
+									<i class="fa fa-refresh"></i>&nbsp;&nbsp;Reset
+								</button>
+							</span>
+						</span>
+					</div>
+				</div>
+			</form>
+			
+			
+		</div>
+		<table id="requestTable" class="table table-striped table-hover table-condensed">
+				<thead>
+					<tr class="table-header">
+						<td></td>
+						<td>Action</td>
+						<td>Card Type</td>
+						<td>Number of cards requested</td>
+						
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr ng-show="!requestForm.cards.length">
+						<td></td>
+						<td colspan=3>Request empty</td>
+					</tr>
+					<tr ng-repeat="request in requestForm.cards">
+						<td></td>
+						 <td>
+	<!-- 				    	<button ng-disabled="setting.deleted" ng-click="ctrl.edit(request)" type="button" class="btn btn-primary btn-xs"> -->
+	<!-- 				    		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+	<!-- 				    		&nbsp;&nbsp;Edit -->
+	<!-- 				    	</button>&nbsp; -->
+					    	<button ng-disabled="setting.deleted" ng-click="ctrl.delete(request)" type="button" class="btn btn-danger btn-xs">
+					    		<i class="fa fa-close"></i>
+					    	</button>
+					    </td>
+					    <td>{{request.cardName}}</td>
+					    <td>{{request.numberOfCards}}</td>
+					   
+					  </tr>
+				</tbody>
+			</table>
+			
+		<!-- footer -->
+		<div class="panel-footer">
+			<button ng-disabled="!requestForm.cards.length" ng-click="ctrl.submit(requestForm)" type="button" class="btn btn-primary btn-large">
+	    		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+	    		&nbsp;&nbsp;Submit Request
+	    	</button>&nbsp;
+	    	<button ng-disabled="!requestForm.cards.length" ng-click="ctrl.cancel()" type="button" class="btn btn-danger btn-large">
+	    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	    		&nbsp;&nbsp;Cancel Request
+	    	</button>
+		</div>
+	</div>
+		
+</div>

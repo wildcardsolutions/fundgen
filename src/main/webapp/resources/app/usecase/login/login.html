@@ -1,0 +1,75 @@
+<!--  
+
+-->
+
+
+<div ng-controller="loginController as loginCtrl">
+	<div class="row col-md-12 title">
+		<label class="controller-title"><i class="fa fa-sign-in fa-2x"></i> Login</label>
+	</div>
+	
+	<div id="login-form" class="row">
+		<br/>
+		<form role="form" name="form">
+			<div class="form-group">
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="username">Username</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="text" 
+									name="username" 
+									id="username" 
+									ng-model="credentials.username" 
+									class="form-control input-sm" 
+									ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!form.username.$pristine && form.username.$error.required && form.username.length">Required</span>
+					</span>
+						
+				</div>
+				<div class="row">
+					<span class="col-sm-8"></span>
+				</div>
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="password">Password</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="password" 
+									name="password" 
+									id="password" 
+									ng-model="credentials.password" 
+									class="form-control input-sm" 
+									ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!form.password.$pristine && form.password.$error.required && form.password.length">Required</span>
+					</span>
+				</div>
+				
+				<br/>
+				
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-8">
+							<!--  -->
+							<button ng-disabled="form.$invalid" ng-click="loginCtrl.login(loginCtrl.credentials)" type="button" class="btn btn-primary btn-xs">
+								<span class="glyphicon glyphicon-log-in"/>&nbsp;&nbsp;Login
+							</button>
+							
+							<!--  -->
+							<button ng-click="loginCtrl.reset()" type="reset" class="btn btn-warning btn-xs">
+								<span class="glyphicon glyphicon-refresh"/>&nbsp;&nbsp;Reset
+							</button>
+						</span>
+					</span>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>

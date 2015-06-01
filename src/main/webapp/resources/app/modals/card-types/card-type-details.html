@@ -1,0 +1,131 @@
+<div class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header dialog-header-confirm">
+				<button type="button" class="close" ng-click="close()">&times;</button>
+				<h4 class="modal-title">
+					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;Membership Card Type
+				</h4>
+			</div>
+			<div class="modal-body">
+				<ng-form name="form" novalidate role="form">
+					<div class="row">
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="id">ID</label>
+							</span>
+							<span class="col-sm-5">
+								<input type="text" class="form-control" id="propertyId" ng-model="cardType.id" readonly />
+							</span>	
+						</span>
+				
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="cardName">Card Name</label>
+							</span>
+							<span class="col-sm-5">
+								<input type="text" 
+									class="form-control" 
+									name="cardName"
+									id="cardName" 
+									ng-model="cardType.name" 
+									placeholder="Enter card type"
+									required/>
+							</span>	
+							<span class="error col-sm-4" 
+									ng-show="!form.cardName.$pristine && form.cardName.$error.required && form.cardName.length">Required
+							</span>
+						</span>
+					
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="cardPrefix">Prefix</label>
+							</span>
+							<span class="col-sm-5">
+								<input type="text" 
+									class="form-control" 
+									name="cardPrefix" 
+									id="cardPrefix" 
+									ng-model="cardType.prefix" 
+									placeholder="Enter card prefix"
+									ng-minlength = "2"
+									ng-maxlength = "2"
+									required/>
+							</span>	
+							<span class="error col-sm-4" 
+									ng-show="!form.cardPrefix.$pristine && form.cardPrefix.$error.required && form.cardPrefix.length">Required
+							</span>
+							<span class="error col-sm-4" 
+									ng-show="form.cardPrefix.$error.maxlength">Exceeded allowable card prefix length
+							</span>
+							<span class="error col-sm-4" 
+									ng-show="form.cardPrefix.$error.minlength">Card prefix length should be two characters long
+							</span>
+						</span>
+					
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="minimumAge">Minimum Age</label>
+							</span>
+							<span class="col-sm-5">
+								<input type="number" 
+									class="form-control" 
+									name="minimumAge" 
+									id="minimumAge" 
+									ng-model="cardType.minimumAge" 
+									placeholder="Enter minimum age"
+									min="1" 
+									max="100"
+									ng-required = "true"/>
+							</span>	
+							<span class="error col-sm-4" 
+									ng-show="!form.minimumAge.$pristine && form.minimumAge.$error.required && form.minimumAge.length">Required
+							</span>
+							<span class="error col-sm-4" 
+									ng-show="form.minimumAge.$error.number">Not valid number.
+							</span>
+							<span class="error col-sm-4" 
+									ng-show="form.minimumAge.$error.max ">Exceeded minimum age allowable.
+							</span>
+						</span>
+					
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="maximumAge">Maximum Age</label>
+							</span>
+							<span class="col-sm-5">
+								<input type="number"  
+									class="form-control" 
+									name="maximumAge"
+									id="maximumAge" 
+									ng-model="cardType.maximumAge" 
+									placeholder="Enter maximum age"
+									min="1" 
+									max="100"
+									required/>
+							</span>	
+							<span class="error col-sm-4" 
+									ng-show="!form.maximumAge.$pristine && form.maximumAge.$error.required && form.maximumAge.length">Required
+							</span>
+							<span class="error col-sm-4" 
+									ng-show="form.maximumAge.$error.number">Not valid number.
+							</span>
+							<span class="error col-sm-4" 
+									ng-show="form.maximumAge.$error.max ">Exceeded maximum age allowable.
+							</span>
+						</span>
+					</div>
+				</ng-form>
+			</div>
+					
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="reset()">
+					<i class="fa fa-undo"></i>&nbsp;&nbsp;Reset
+				</button>
+				<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="(form.$dirty && form.$invalid) || form.$pristine">
+					<i class="fa fa-upload"></i>&nbsp;&nbsp;Save
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

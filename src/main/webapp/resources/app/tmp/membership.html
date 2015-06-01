@@ -1,0 +1,222 @@
+<div ng-controller="membershipController as mbrCtrl">
+	<div id="" class="row">
+		<br/>
+		<form role="form" name="member.form">
+			<div class="form-group">
+				<div class="">
+					<div class="row">
+						<span class="col-sm-9">
+							<label class="control-label">Membership Details</label>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="declarationPeriod">Declaration Period</label>
+							</span>
+							<span class="col-sm-4">
+								<select class="form-control input-sm" ng-model="mbrCtrl.member.declarationPeriod" ng-change="updateDeclarationPeriod()">
+									<option ng:repeat="declarationPeriod in declarationPeriods" value="{{declarationPeriod.code}}">{{declarationPeriod.label}}</option>
+								</select>
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!member.form.membershipType.$pristine && member.form.membershipType.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="membershipType">Card Type</label>
+							</span>
+							<span class="col-sm-4">
+								<select class="form-control input-sm" ng-model="mbrCtrl.member.membershipType">
+									<option value="CLASSIC">Classic</option>
+									<option>Bronze</option>
+									<option>Silver</option>
+									<option>Gold</option>
+									<option>Platinum</option>
+									<option>Senior</option>
+									<option>Senior Plus</option>
+								</select>
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!member.form.membershipType.$pristine && member.form.membershipType.$error.required">*Required</span>
+						</span>
+					</div>
+					
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="cardId">Card ID</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="cardId" id="cardId" ng-model="mbrCtrl.member.cardId" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!member.form.membershipType.$pristine && member.form.membershipType.$error.required">*Required</span>
+						</span>
+					</div>
+					
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="effectivityDate">Effectivity Date</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="effectivityDate" id="effectivityDate" ng-model="mbrCtrl.member.effectivityDate" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!member.form.membershipType.$pristine && member.form.membershipType.$error.required">*Required</span>
+						</span>
+					</div>
+				</div>
+				
+				
+				<br/><br/>
+				
+				<div class="">
+					<div class="row">
+						<span class="col-sm-9">
+							<label class="control-label">Personal Information</label>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="lastname">Lastname</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="lastname" id="lastname" ng-model="userCtrl.user.lastname" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.lastname.$pristine && user.form.lastname.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="firstname">Firstname</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="firstname" id="firstname" ng-model="mbrCtrl.member.firstname" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.firstname.$pristine && user.form.firstname.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="middlename">Middlename</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="middlename" id="middlename" ng-model="userCtrl.user.middlename" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.middlename.$pristine && user.form.middlename.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+					</div>
+					
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="designation">Date of Birth</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="dateOfBirth" id="dateOfBirth" ng-model="userCtrl.user.designation" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.designation.$pristine && user.form.designation.$error.required">*Required</span>
+						</span>
+					</div>
+					
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="username">Address</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="addresss" id="addresss" ng-model="userCtrl.user.userProfile.username" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.username.$pristine && user.form.username.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="emailAddress">Email Address</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="emailAddress" id="emailAddress" ng-model="userCtrl.user.userProfile.password" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.password.$pristine && user.form.password.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="emailAddress">Cellphone Number</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="cellPhoneNumber" id="cellPhoneNumber" ng-model="userCtrl.user.userProfile.password" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.password.$pristine && user.form.password.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="emailAddress">Home Phone Number</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="homePhoneNumber" id="homePhoneNumber" ng-model="userCtrl.user.userProfile.password" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.password.$pristine && user.form.password.$error.required">*Required</span>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-3">
+								<label class="control-label" for="emailAddress">Ofice Phone Number</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" name="officePhoneNumber" id="officePhoneNumber" ng-model="userCtrl.user.userProfile.password" class="form-control input-sm" ng-required="true">
+							</span>
+							<span class="error col-sm-2" 
+									ng-show="!user.form.password.$pristine && user.form.password.$error.required">*Required</span>
+						</span>
+					</div>
+				</div>
+				
+				<br/>
+				
+				<div class="row">
+					<span class="col-sm-9">
+						<span class="col-sm-9">
+							<!--  -->
+							<button ng-disabled="user.form.$invalid" ng-click="userCtrl.save(userCtrl.user)" type="button" class="btn btn-primary btn-xs">
+								<span class="glyphicon glyphicon-log-in"/>&nbsp;&nbsp;Save
+							</button>
+							
+							<!--  -->
+							<button ng-click="userCtrl.reset()" type="reset" class="btn btn-warning btn-xs">
+								<span class="glyphicon glyphicon-refresh"/>&nbsp;&nbsp;Reset
+							</button>
+						</span>
+					</span>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>

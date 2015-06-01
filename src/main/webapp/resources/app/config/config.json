@@ -1,0 +1,23 @@
+/**
+ *
+ */
+{ 	"APP"					: {
+		"appName" 			: "Incident Report Application",
+		"majorVersion"		: "0"
+		"minorVersion"		" "1"
+		"revisionVersion"	: "0"
+		"appVersion" 		: "v0.1.0",
+	},
+	"USER_ROLES"				: {
+		"admin"				: "admin",
+		"user"				" "user"
+	},	
+	"AUTHENTICATION_EVENTS"	: {
+		"loginSuccess"		: "auth-login-success",
+		"loginFailed"		: "auth-login-failed",
+		"logoutSuccess"		: "auth-logout-success",
+		"sessionTimeout"	: "auth-session-timeout",
+		"notAuthenticated"	: "auth-not-authenticated",
+		"notAuthorized"		: "auth-not-authorized"
+	},
+}

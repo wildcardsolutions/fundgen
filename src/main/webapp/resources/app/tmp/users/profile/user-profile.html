@@ -1,0 +1,111 @@
+<div ng-controller="userProfileController as userCtrl">
+	<div id="user-form" class="row">
+		<br/>
+		<form role="form" name="user.form">
+			<div class="form-group">
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="firstname">Firstname</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="text" name="firstname" id="firstname" ng-model="userCtrl.user.firstname" class="form-control input-sm" ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!user.form.firstname.$pristine && user.form.firstname.$error.required">*Required</span>
+					</span>
+						
+				</div>
+				<div class="row">
+					<span class="col-sm-8"></span>
+				</div>
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="middlename">Middlename</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="text" name="middlename" id="middlename" ng-model="userCtrl.user.middlename" class="form-control input-sm" ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!user.form.middlename.$pristine && user.form.middlename.$error.required">*Required</span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-sm-8"></span>
+				</div>
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="lastname">Lastname</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="text" name="lastname" id="lastname" ng-model="userCtrl.user.lastname" class="form-control input-sm" ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!user.form.lastname.$pristine && user.form.lastname.$error.required">*Required</span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="designation">Designation</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="text" name="designation" id="designation" ng-model="userCtrl.user.designation" class="form-control input-sm" ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!user.form.designation.$pristine && user.form.designation.$error.required">*Required</span>
+					</span>
+				</div>
+				
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="username">Username</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="text" name="username" id="username" ng-model="userCtrl.user.userProfile.username" class="form-control input-sm" ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!user.form.username.$pristine && user.form.username.$error.required">*Required</span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-2">
+							<label class="control-label" for="password">Password</label>
+						</span>
+						<span class="col-sm-4">
+							<input type="password" name="password" id="password" ng-model="userCtrl.user.userProfile.password" class="form-control input-sm" ng-required="true">
+						</span>
+						<span class="error col-sm-2" 
+								ng-show="!user.form.password.$pristine && user.form.password.$error.required">*Required</span>
+					</span>
+				</div>
+				
+				<br/>
+				
+				<div class="row">
+					<span class="col-sm-8">
+						<span class="col-sm-8">
+							<!--  -->
+							<button ng-disabled="user.form.$invalid" ng-click="userCtrl.save(userCtrl.user)" type="button" class="btn btn-primary btn-xs">
+								<span class="glyphicon glyphicon-log-in"/>&nbsp;&nbsp;Save
+							</button>
+							
+							<!--  -->
+							<button ng-click="userCtrl.reset()" type="reset" class="btn btn-warning btn-xs">
+								<span class="glyphicon glyphicon-refresh"/>&nbsp;&nbsp;Reset
+							</button>
+						</span>
+					</span>
+				</div>
+			</div>
+		
+<!-- 			<input type="hidden" name="chapterId" id="chapterId" ng-model="userCtrl.user.chapter.chapterId" value="1"> -->
+<!-- 			<input type="hidden" name="chapterName" id="chapterName" ng-model="userCtrl.user.chapter.chapterName" value=""> -->
+<!-- 			<input type="hidden" name="chapterLocation" id="chapterLocation" ng-model="userCtrl.user.chapter.chapterLocation" value=""> -->
+		</form>
+	</div>
+</div>

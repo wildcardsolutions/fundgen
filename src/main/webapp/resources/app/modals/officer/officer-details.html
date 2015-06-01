@@ -1,0 +1,119 @@
+<div class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header dialog-header-confirm">
+				<button type="button" class="close" ng-click="close()">&times;</button>
+				<h4 class="modal-title">
+					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;Officer Details
+				</h4>
+			</div>
+			
+			<div class="modal-body">
+		  		<form role="form" name="form">
+		  			<div class="row">
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="chapter">Chapter</label>
+							</span>
+							<span class="input-group col-sm-5">
+								<select name="chapter" 
+										id="chapter" 
+										class="form-control input-sm" 
+										ng-model="officer.chapterId"
+										ng-options="chapter.id as chapter.chapterName for chapter in chapters | filter: {deleted: false}" 
+										required >
+								</select> 
+							</span>	
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="role">Role</label>
+							</span>
+							<span class="input-group col-sm-5">
+								<select name="role" 
+										id="role" 
+										class="form-control input-sm" 
+										ng-model="officer.roleId"
+										ng-options="role.roleId as role.roleName for role in roles | filter: {deleted: false}" 
+										required > 
+								</select>
+							</span>	
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="username">Username</label>
+							</span>
+							<span class="input-group col-sm-5">
+								<input type="text" 
+									class="form-control" 
+									name="username"
+									id="username" 
+									ng-model="officer.username" 
+									ng-minlength="6"
+									placeholder="Enter username"
+									required/>
+							</span>	
+							<span class="error col-sm-4" ng-show="form.username.$error.minlength">Username should be at least 6 characters long.</span>
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="lastname">Lastname</label>
+							</span>
+							<span class="input-group col-sm-5">
+								<input type="text" 
+									class="form-control" 
+									name="lastname"
+									id="lastname" 
+									ng-model="officer.lastname" 
+									placeholder="Enter lastname"
+									required/>
+							</span>	
+							
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="firstname">Firstname</label>
+							</span>
+							<span class="input-group col-sm-5">
+								<input type="text" 
+									class="form-control" 
+									name="firstname"
+									id="firstname" 
+									ng-model="officer.firstname" 
+									placeholder="Enter firstname"
+									required/>
+							</span>	
+						</span>
+						<span class="col-sm-12">
+							<span class="col-sm-3">
+								<label class="control-label" for="middlename">Middlename</label>
+							</span>
+							<span class="input-group col-sm-5">
+								<input type="text" 
+									class="form-control" 
+									name="middlename"
+									id="middlename" 
+									ng-model="officer.middlename" 
+									placeholder="Enter middlename"
+									required/>
+							</span>	
+						</span>
+					</div>
+				</form>
+			</div>
+					
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="reset()">
+					<i class="fa fa-undo"></i>&nbsp;&nbsp;Reset
+				</button>
+				<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="(form.$dirty && form.$invalid) || form.$pristine">
+					<i class="fa fa-upload"></i>&nbsp;&nbsp;Save
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

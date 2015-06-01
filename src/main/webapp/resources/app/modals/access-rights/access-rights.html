@@ -1,0 +1,33 @@
+<div class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header dialog-header-confirm">
+				<button type="button" class="close" ng-click="close()">&times;</button>
+				<h4 class="modal-title">
+					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Access Rights for {{data.role.roleName}}
+				</h4>
+			</div>
+			<div class="modal-body">
+				<ng-form name="form" novalidate role="form">
+					<div ng-repeat="(key, value) in access.resources" class="panel panel-default">
+						<div class="panel-body">
+							<span class="col-md-12">
+								<label>{{key}}</label>
+							</span>
+							 <span class="col-md-12">
+							 	<span ng-repeat="(resourceName, resourceValue) in access.resources[key]" class="col-md-6"> 
+									<input type="checkbox" ng-model="access.resources[key][resourceName]" >&nbsp;&nbsp;{{resourceName}}
+								</span>
+							 </span>
+						</div>
+					</div>
+				</ng-form>
+			</div>
+					
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+				<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="(nameDialog.$dirty && nameDialog.$invalid) || nameDialog.$pristine">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

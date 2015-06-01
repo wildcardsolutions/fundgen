@@ -1,0 +1,22 @@
+<div class="modal">
+	<div class="modal-lg">
+		<div class="modal-content">
+			<div class="modal-header dialog-header-confirm">
+				<button type="button" class="close" ng-click="close()">&times;</button>
+				<h4 class="modal-title">
+					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Role
+				</h4>
+			</div>
+			<div class="modal-body">
+				<ng-form name="form" novalidate role="form">
+					
+				</ng-form>
+			</div>
+					
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+				<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="(nameDialog.$dirty && nameDialog.$invalid) || nameDialog.$pristine">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

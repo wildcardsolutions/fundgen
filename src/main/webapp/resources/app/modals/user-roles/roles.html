@@ -1,0 +1,126 @@
+<div class="modal">
+	<div class="modal-lg">
+		<div class="modal-content">
+			<div class="modal-header dialog-header-confirm">
+				<button type="button" class="close" ng-click="close()">&times;</button>
+				<h4 class="modal-title">
+					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Membership Card Details
+				</h4>
+			</div>
+			<div class="modal-body">
+				<ng-form name="form" novalidate role="form">
+					<div class="row">
+						<span class="col-sm-12">
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Card Number</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.cardNumber" readonly />
+							</span>
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Card Type</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.cardType" readonly />
+							</span>	
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Assigned To Chapter</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.assignedToChapter" readonly />
+							</span>
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Assigned By</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.assignedToChapterBy" readonly />
+							</span>	
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Date Assigned </label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.dateAssignedToChapter" readonly />
+							</span>
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Assigned To Member</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.assignedToMember" readonly />
+							</span>
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Assigned By</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.assignedToMemberBy" readonly />
+							</span>	
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Date Assigned</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.dateAssignedToMember" readonly />
+							</span>	
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Effectivity Date</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.dateAssignedToMember" readonly />
+							</span>
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Discarded</label>
+							</span>
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Reason</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.dateAssignedToMember" readonly />
+							</span>	
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Discarded By</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.dateAssignedToMember" readonly />
+							</span>
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Date Discarded</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.dateAssignedToMember" readonly />
+							</span>
+						</span>
+						
+						
+						
+						<span class="col-sm-12">
+							<span class="col-sm-4">
+								
+							</span>
+							<span class="col-sm-4">
+								
+							</span>	
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-4">
+								
+							</span>
+							<span class="col-sm-4">
+								
+							</span>	
+						</span>
+						
+						<span class="col-sm-12">
+							<span class="col-sm-4">
+								<label class="control-label" for="chapterId">Assigned To Member By</label>
+							</span>
+							<span class="col-sm-4">
+								<input type="text" class="form-control" id="chapterId" ng-model="card.assignedToMemberBy" readonly />
+							</span>	
+						</span>
+						
+						
+						<span class="col-sm-12">
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Discarded</label>
+							</span>
+							<span class="col-sm-6">
+								<label class="control-label" for="chapterId">Reason</label>
+								<input type="text" class="form-control" id="chapterId" ng-model="card.assignedToMemberBy" readonly />
+							</span>	
+						</span>
+						
+					</div>
+				</ng-form>
+			</div>
+					
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+				<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="(nameDialog.$dirty && nameDialog.$invalid) || nameDialog.$pristine">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

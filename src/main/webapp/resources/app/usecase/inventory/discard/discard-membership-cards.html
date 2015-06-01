@@ -1,0 +1,152 @@
+<!-- 
+ -->
+<div ng-controller="discardMembershipCardsController as ctrl">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<label class="controller-title"><i class="fa fa-trash fa-2x"></i> Discard Membership Cards</label>
+		</div>
+	  	<div class="panel-body">
+	  		<form role="form" name="form">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<label class="control-label" for="cardType">Card Type</label>
+							</div>
+							<div class="input-group col-sm-3">
+								<select name="cardType" 
+										id="cardType" 
+										class="form-control input-sm" 
+										ng-change="update()"
+										ng-model="card.cardType"
+										ng-options="cardType.id as cardType.name for cardType in cardTypes | filter : {deleted : false}"  >
+								</select> 
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<label class="control-label" for="discardType">Discard By</label>
+							</div>
+							<div class="input-group col-sm-3">
+								<select name="discardType" 
+										id="discardType" 
+										class="form-control input-sm" 
+										ng-model="card.discardType" 
+										ng-change="card.seriesEnd=null; card.seriesStart=null"> 
+									<option value="1" selected="selected">Card Number</option>
+									<option value="2">Card Series</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div ng-show="card.discardType == 1" class="row">
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<label class="control-label" for="cardNumber">Card Number</label>
+							</div>
+							<div class="input-group col-sm-3" >
+								<div class="input-group-addon">{{prefix}}</div>
+								<input type="number" 
+									placeholder="Enter card number"
+									name="cardNumber" 
+									id="cardNumber" 
+									ng-model="card.seriesStart" 
+									ng-change="card.seriesEnd=card.seriesStart"
+									class="form-control input-sm" 
+									ng-required="true" 
+									min="1"
+									max="9999999" >
+							</div>
+							<span class="error col-sm-3" 
+									ng-show="form.cardNumber.$error.number">Not valid number.</span>
+							<div class="error col-sm-3" 
+									ng-show="form.cardNumber.$error.max">Exceeded maximum value.</div>
+						</div>
+					</div>
+					
+					<div ng-show="card.discardType == 2" class="row">
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<label class="control-label" for="seriesStart">Series Start</label>
+							</div>
+							<div class="input-group col-sm-3">
+								<div class="input-group-addon">{{prefix}}</div>
+								<input type="number" 
+										placeholder="Enter start of series"
+										name="seriesStart" 
+										id="seriesStart" 
+										ng-model="card.seriesStart" 
+										class="form-control input-sm" 
+										ng-required="true" 
+										min="1" 
+										max="9999999">
+							</div>
+							<div class="error col-sm-3"
+									ng-show="form.seriesStart.$error.number">Not valid number.</div>
+							<div class="error col-sm-3" 
+									ng-show="form.seriesStart.$error.max ">Exceeded maximum value.</div>
+						</div>
+					</div>
+					<div ng-show="card.discardType == 2" class="row">
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<label class="control-label" for="seriesEnd">Series End</label>
+							</div>
+							<div class="input-group col-sm-3">
+								<div class="input-group-addon">{{prefix}}</div>
+								<input type="number" 
+										placeholder="Enter end of series"
+										name="seriesEnd" 
+										id="seriesEnd" 
+										ng-model="card.seriesEnd" 
+										class="form-control input-sm" 
+										ng-required="true" 
+										min="1" 
+										max="9999999">
+							</div>
+							<div class="error col-sm-3" 
+									ng-show="form.seriesEnd.$error.number">Not valid number.</div>
+							<div class="error col-sm-3" 
+									ng-show="form.seriesEnd.$error.max">Exceeded maximum value.</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<label class="control-label" for="reason">Reason</label>
+							</div>
+							<div class="input-group col-sm-3">
+								<input type="text" 
+										placeholder="Enter reason for discarding"
+										name="reason" 
+										id="reason" 
+										ng-model="card.reason" 
+										class="form-control input-sm" 
+										ng-required="true" >
+							</div>
+							<span class="error col-sm-3" 
+									ng-show="!form.reason.$pristine && form.reason.$error.required && form.reason.length">Required</span>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<span class="col-sm-9">
+							<span class="col-sm-9">
+								<button ng-disabled="form.$invalid" ng-click="ctrl.discard(card)" type="button" class="btn btn-primary btn-large">
+									<span><i class="fa fa-trash"></i>&nbsp;&nbsp;Discard</span>
+								</button>
+								<button ng-click="ctrl.reset()" type="button" class="btn btn-warning btn-large">
+									<span><i class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</span>
+								</button>
+							</span>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

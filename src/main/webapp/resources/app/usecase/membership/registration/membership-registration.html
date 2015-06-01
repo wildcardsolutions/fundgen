@@ -1,0 +1,385 @@
+
+<div ng-controller="membershipRegistrationController as ctrl">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<label class="controller-title"><i class="fa fa-user-plus fa-2x"></i> Membership Registration</label>
+		</div>
+	  	<div class="panel-body">
+	  		<form role="form" name="form">
+	  			<div class="panel panel-default">
+				  	<div class="panel-body">
+				  		<div class="row">
+				  			<span class="col-sm-12">
+				  				<label >Membership Details</label>
+				  			</span>
+				  			
+			  				<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="declarationPeriod">Declaration Period</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<select name="declarationPeriod" 
+										id="declarationPeriod" 
+										class="form-control" 
+										ng-model="member.declarationPeriod"
+										ng-options="declarationPeriod.id as declarationPeriod.label for declarationPeriod in declarationPeriods"
+										ng-change="updateDeclarationPeriod(member.declarationPeriod)" 
+										required >
+									</select> 
+								</span>
+								<span class="col-sm-2"></span>
+							</span>
+				  			
+				  			
+				  				
+							
+			
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="effectivityDate">Effectivity Date</label>
+								</span>
+								<span class="input-group col-sm-4">
+	            					<input type="date" 
+	            							name="effectivityDate"
+											id="effectivityDate" 
+											placeholder = "Enter effectivity date [yyyy-MM-dd]"
+	            							class="form-control" 
+	            							datepicker-popup="{{format}}" 
+	            							ng-model="member.effectivityDate" 
+	            							is-open="effectivityDate.opened" 
+	            							min-date="effectivityDate.minDate" 
+	            							max-date="effectivityDate.maxDate" 
+	            							init-date="effectivityDate.minDate" 
+	            							datepicker-options="dateOptions" 
+	            							ng-required="true" />
+	              					<span class="input-group-btn">
+	                					<button type="button" class="btn btn-default" ng-click="openEffectivityDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					              	</span>
+					            </span>
+								<span class="error col-sm-2" 
+										ng-show="form.effectivityDate.$error.date && form.effectivityDate.length">*Required</span>
+							</span>
+			
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="cardType">Card Type</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<select name="cardType" 
+											id="cardType" 
+											class="form-control" 
+											ng-model="member.cardType"
+											ng-change="updatePrefix()"
+											ng-options="cardType.id as cardType.name for cardType in cardTypes | filter: {deleted: false}" 
+											required >
+									</select> 
+								</span>	
+							</span>
+					
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="cardNumber">Card ID</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<span class="input-group-addon">{{prefix}}</span>
+									<input type="number" 
+											name="cardNumber" 
+											id="cardNumber" 
+											placeholder = "Enter card number"
+											ng-model="member.cardNumber" 
+											class="form-control"
+											min="1" 
+											max="9999999"
+											ng-required="true">
+								</span>
+								<span class="error col-sm-3" 
+									ng-show="form.cardNumber.$error.number">Not a valid number.</span>
+								<span class="error col-sm-3" 
+									ng-show="form.cardNumber.$error.max ">Exceeded maximum value.</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+				  	<div class="panel-body">
+				  		<div class="row">
+				  			<span class="col-sm-9">
+				  				<label >Member Information</label>
+				  			</span>
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="lastname">Lastname</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="lastname" 
+											id="lastname" 
+											placeholder = "Enter lastname"
+											ng-model="member.lastname" 
+											class="form-control input-sm" 
+											typeahead ="name for name in getMatchingLastNames($viewValue)"
+											typeahead-min-length="2"
+											ng-required="true">
+	<!-- 										<i ng-show="loadingLastnames" class="glyphicon glyphicon-refresh"></i> -->
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.lastname.$pristine && form.lastname.$error.required && form.lastname.length">*Required</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="firstname">Firstname</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="firstname" 
+											id="firstname" 
+											placeholder = "Enter firstname"
+											ng-model="member.firstname" 
+											class="form-control input-sm" 
+											typeahead ="name for name in getMatchingFirstNames($viewValue)"
+											typeahead-min-length="2"
+											ng-required="true">
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.firstname.$pristine && form.firstname.$error.required && form.firstname.length">*Required</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="middlename">Middlename</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="middlename" 
+											id="middlename" 
+											placeholder = "Enter middlename"
+											ng-model="member.middlename" 
+											class="form-control input-sm" 
+											typeahead ="lastname for lastname in getMatchingMiddleNames($viewValue)"
+											typeahead-min-length="2"
+											ng-required="true">
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.middlename.$pristine && form.middlename.$error.required && form.middlename.length">*Required</span>
+							</span>
+			
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="dateOfBirth">Date of Birth</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+	            							name="dateOfBirth"
+											id="dateOfBirth" 
+											placeholder = "Enter date of birth [yyyy-MM-dd]"
+	            							class="form-control" 
+	            							datepicker-popup="{{format}}" 
+	            							ng-model="member.dateOfBirth" 
+	            							ng-blur="ctrl.computeAge(form.dateOfBirth)"
+	            							is-open="birthDate.opened" 
+	            							min="1900-01-01" 
+	            							max="2099-12-31" 
+	            							min-date="'1900-01-01'" 
+	            							max-date="'2099-12-31'" 
+	            							datepicker-options="dateOptions" 
+	            							required />
+	            					<span class="input-group-btn">
+	                					<button type="button" class="btn btn-default" ng-click="openDateOfBirth($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					              	</span>
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.dateOfBirth.$pristine && form.dateOfBirth.$error.required && form.dateOfBirth.length">*Required</span>
+								<span class="error col-sm-2" 
+										ng-show="form.dateOfBirth.$error.date">Error</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="username">Age</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="age" 
+											id="age" 
+											placeholder = "Age"
+											ng-model="member.age" 
+											class="form-control input-sm" 
+											readonly>
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.age">Age not covered by card selected.</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="username">Address</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="addresss" 
+											id="addresss" 
+											placeholder = "Enter address"
+											ng-model="member.address" 
+											class="form-control input-sm" 
+											typeahead ="address for address in getMatchingAddresses($viewValue)"
+											typeahead-min-length="2"
+											ng-required="true">
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.username.$pristine && form.username.$error.required">*Required</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="emailAddress">Email Address</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="email" 
+											name="emailAddress" 
+											id="emailAddress" 
+											placeholder = "Enter email address"
+											ng-model="userCtrl.member.userProfile.password" 
+											class="form-control input-sm" 
+											ng-required="true">
+								</span>
+								<span class="error col-sm-1" ng-show="member.cardType!=1">*</span>
+								<span class="error col-sm-3" ng-show="!form.emailAddress.$pristine &&  form.emailAddress.$error.email" > Not a valid email address</span>
+							</span>
+					
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="cellPhoneNumber">Cellphone Number</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="cellPhoneNumber"
+											class="form-control input-sm"   
+											placeholder = "Enter cell phone number"
+											ng-model="member.cellPhoneNumber" 
+											ng-pattern = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+											ng-required="member.cardType!=1" >
+									
+								</span>
+								<span class="error col-sm-1" ng-show="member.cardType!=1">*</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.cellPhoneNumber.$pristine && form.cellPhoneNumber.$error.required && form.cellPhoneNumber.length">*Required</span>
+								<span class="error" 
+										ng-show="form.cellPhoneNumber.$error.pattern">&nbsp;&nbsp;Invalid phone number</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="homePhoneNumber">Home Phone Number</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="homePhoneNumber" 
+											id="homePhoneNumber" 
+											placeholder = "Enter home phone number"
+											ng-model="member.homePhoneNumber" 
+											ng-pattern = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+											class="form-control input-sm" 
+											ng-required="true">
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.homePhoneNumber.$pristine && form.homePhoneNumber.$error.required">*Required</span>
+								<span class="error" 
+										ng-show="form.homePhoneNumber.$error.pattern">&nbsp;&nbsp;Invalid phone number</span>
+							</span>
+						
+							<span class="col-sm-9">
+								<span class="col-sm-3">
+									<label class="control-label" for="officePhoneNumber">Office Phone Number</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="officePhoneNumber" 
+											id="officePhoneNumber" 
+											placeholder = "Enter office phone number"
+											ng-model="member.officePhoneNumber" 
+											ng-pattern = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+											class="form-control input-sm" 
+											required>
+								</span>
+								<span class="error col-sm-2" 
+										ng-show="!form.password.$pristine && form.password.$error.required">*Required</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+				  	<div class="panel-body">
+				  		<div class="row">
+				  			<span class="col-sm-12">
+				  				<label >Processing Details</label>
+				  			</span>
+				  			<span class="col-sm-9">
+				  				<span class="col-sm-3">
+									<label class="control-label" for="registeredBy">Registered by</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="registeredBy"
+											class="form-control input-sm"   
+											ng-model="member.registeredBy" />
+								</span>
+				  			</span>
+				  			<span class="col-sm-9">
+				  				<span class="col-sm-3">
+									<label class="control-label" for="updatedBy">Updated by</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="registeredBy"
+											class="form-control input-sm"   
+											ng-model="member.registeredBy" />
+								</span>
+				  			</span>
+				  			<span class="col-sm-9">
+				  				<span class="col-sm-3">
+									<label class="control-label" for="reviewedBy">Reviewed by</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="registeredBy"
+											class="form-control input-sm"   
+											ng-model="member.registeredBy" />
+								</span>
+				  			</span>
+				  			<span class="col-sm-9">
+				  				<span class="col-sm-3">
+									<label class="control-label" for="approvedBy">Approved by</label>
+								</span>
+								<span class="input-group col-sm-4">
+									<input type="text" 
+											name="registeredBy"
+											class="form-control input-sm"   
+											ng-model="member.registeredBy" />
+								</span>
+				  			</span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel-footer">
+			<div class="row">
+				<span class="col-sm-9">
+					<span class="col-sm-9">
+						<!--  -->
+						<button ng-disabled="form.$invalid" ng-click="ctrl.save(member)" type="button" class="btn btn-primary btn-large">
+							<span class="glyphicon glyphicon-log-in"/>&nbsp;&nbsp;Save
+						</button>
+						
+						<!--  -->
+						<button ng-click="ctrl.reset()" type="reset" class="btn btn-warning btn-large">
+							<span class="glyphicon glyphicon-refresh"/>&nbsp;&nbsp;Reset
+						</button>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

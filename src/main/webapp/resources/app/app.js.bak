@@ -1,0 +1,299 @@
+/**
+ *
+ *
+ */
+
+
+/**
+ * 
+ */
+"use strict";
+
+/**
+ * 
+ */
+var springbootApp = angular.module("springbootApp", [
+	"ngRoute", 
+	"ngResource", 
+	"ngCookies", 
+	"ngSanitize",
+	"ui.bootstrap",
+	"dialogs"
+]);
+
+
+//angular.module("springbootApp").directive('ngEnter', function () {
+//    return function (scope, element, attrs) {
+//        element.bind("keydown keypress", function (event) {
+//            if(event.which === 13) {
+//                scope.$apply(function (){
+//                    scope.$eval(attrs.ngEnter);
+//                });
+//                event.preventDefault();
+//            }
+//        });
+//    };
+//});
+
+/**
+ * 
+ */
+springbootApp.constant("AUTHENTICATION_EVENTS", {
+	loginSuccess: 'auth-login-success',
+	loginFailed: 'auth-login-failed',
+	logoutSuccess: 'auth-logout-success',
+	sessionTimeout: 'auth-session-timeout',
+	notAuthenticated: 'auth-not-authenticated',
+	notAuthorized: 'auth-not-authorized'
+});
+
+/**
+ * 
+ */
+//springbootApp.service("userAuthenticationService", ['$httpProvider', function($httpProvider){
+//	
+//}]);
+
+springbootApp.factory('userAuthenticationService', ['$http', function($http) {
+	
+    function authenticate(credentials) {
+      return $http({
+        method: 'JSONP',
+        url: ''
+      });
+    }
+    
+    return {
+    	authenticate: function(credentials) { 
+    		authenticate(credentials);
+    	},
+    };
+    
+  }]);
+
+
+
+/**
+ * 
+ */
+springbootApp.config(function ($routeProvider, $httpProvider) {
+	$routeProvider
+		.when("/myaccount", {
+			templateUrl: "resources/app/usecase/my-account/my-account.html"
+		})
+		.when("/tasks/mytasks", {
+			templateUrl: "resources/app/usecase/tasks/my-tasks/my-tasks.html"
+		})
+		.when("/tasks/grouptasks", {
+			templateUrl: "resources/app/usecase/tasks/group-tasks/group-tasks.html"
+		})
+		.when("/tasks/taskhistory", {
+			templateUrl: "resources/app/usecase/tasks/task-history/task-history.html"
+		})
+		.when("/membership/import", {
+			templateUrl: "resources/app/usecase/membership/import-membership-information/import-membership-information.html"
+		})
+		.when("/membership/register", {
+			templateUrl: "resources/app/usecase/membership/membership-registration/membership-registration.html"
+		})
+		.when("/membership/updates", {
+			templateUrl: "resources/app/usecase/membership/membership-updates/membership-updates.html"
+		})
+		.when("/membership/renewals", {
+			templateUrl: "resources/app/usecase/membership/membership-renewals/membership-renewals.html"
+		})
+		.when("/inventory/register", {
+			templateUrl: "resources/app/usecase/card-inventory/views/registerMembershipCards.html"
+		})
+		.when("/inventory/levels/:cardType", {
+			templateUrl: "resources/app/usecase/card-inventory/views/membershipCardsInventoryLevels.html"
+		})
+		.when("/inventory/discard", {
+			templateUrl: "resources/app/usecase/card-inventory/views/discardMembershipCards.html"
+		})
+		.when("/inventory/allocate", {
+			templateUrl: "resources/app/usecase/card-inventory/views/allocateMembershipCards.html"
+		})
+		.when("/inventory/request", {
+			templateUrl: "resources/app/usecase/card-inventory/views/requestMembershipCards.html"
+		})
+		.when("/inventory/list", {
+			templateUrl: "resources/app/usecase/card-inventory/views/listMembershipCards.html"
+		})
+		.when("/inventory/list/:cardType/:seriesStart/:seriesEnd/:pageIndex/:pageSize", {
+			templateUrl: "resources/app/usecase/card-inventory/views/listMembershipCards.html"
+		})
+		.when("/maintenance/chapter", {
+			templateUrl: "resources/app/usecase/maintenance/chapter/chapter.html",
+			resolve : {
+				'init' : function($http, applicationSetting) {
+					return $http.get("/api/chapter/getPageCountBySize/" + applicationSetting.get("pageSize")).then(function(result) {
+						applicationSetting.set("chapterPageCount", result.data.pages);
+						return applicationSetting.get("chapterPageCount");
+			        });
+				}
+			}
+		})
+		.when("/maintenance/officer", {
+			templateUrl: "resources/app/usecase/maintenance/officer/officer.html"
+		})
+		.when("/maintenance/cards", {
+			templateUrl: "resources/app/usecase/maintenance/cards/cards.html",
+			resolve : {
+				'init' : function($http, applicationSetting) {
+					return $http.get("/api/membershipCardType/getPageCountBySize/" + applicationSetting.get("pageSize")).then(function(result) {
+						applicationSetting.set("membershipCardTypePageCount", result.data.pages);
+						return applicationSetting.get("membershipCardTypePageCount");
+			        });
+				}
+			}
+		})
+		.when("/maintenance/settings", {
+			templateUrl: "resources/app/usecase/maintenance/settings/settings.html"
+		})
+		.when("/maintenance/roles", {
+			templateUrl: "resources/app/usecase/maintenance/roles/roles.html",
+			resolve : {
+				'init' : function($http, applicationSetting) {
+					return $http.get("/api/role/getPageCountBySize/" + applicationSetting.get("pageSize")).then(function(result) {
+						applicationSetting.set("rolesPageCount", result.data.pages);
+						return applicationSetting.get("rolesPageCount");
+			        });
+				}
+			}
+		})
+		.when("/login", {
+			controller: "loginController",
+			templateUrl: "resources/app/usecase/login/login.html"
+		})
+		.otherwise({
+            redirectTo:'/'
+		});
+
+	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+});
+
+
+
+
+/**
+ * 
+ */
+var controllers = {}
+//controllers.defaultController = defaultController;
+//controllers.membershipController = membershipController;
+controllers.loginController = loginController;
+//controllers.userProfileController = userProfileController;
+//controllers.userListController = userListController;
+//controllers.createCardController = createCardController;
+// my account controller
+controllers.myAccountController = myAccountController;
+// task controllers
+controllers.myTasksController = myTasksController;
+controllers.groupTasksController = groupTasksController;
+controllers.taskHistoryController = taskHistoryController;
+// membership controllers
+controllers.importMembershipInformationController = importMembershipInformationController;
+controllers.membershipRegistrationController = membershipRegistrationController;
+controllers.membershipUpdatesController = membershipUpdatesController;
+controllers.membershipRenewalsController = membershipRenewalsController;
+controllers.membershipRenewalsController = membershipRenewalsController;
+//card inventory controllers
+//controllers.registerMembershipCardsController = registerMembershipCardsController;
+//controllers.inventoryLevelsController = inventoryLevelsController;
+//controllers.discardMembershipCardsController = discardMembershipCardsController;
+//controllers.allocateMembershipCardsController = allocateMembershipCardsController;
+//controllers.requestMembershipCardsController = requestMembershipCardsController;
+//controllers.listMembershipCardsController = listMembershipCardsController;
+// maintenance controllers
+//controllers.chapterController = chapterController;
+//controllers.officerController = officerController;
+//controllers.cardController = cardController;
+controllers.settingsController = settingsController;
+//controllers.rolesController = rolesController;
+//controllers.modalInstanceController = modalInstanceController
+controllers.accessRightsController = accessRightsController;
+
+/**
+ * 
+ */
+springbootApp.controller(controllers);
+
+
+springbootApp.service('applicationSetting', [ '$http', function($http) {
+	var setting = {};
+	
+	this.set = function(key, value) {
+		setting[key] = value;
+	};
+	
+	this.get= function(key) {
+		return setting[key];
+	};
+	
+	this.remove = function(key) {
+		delete setting[key];
+	};
+	
+}]); 
+
+
+
+
+
+
+
+/**
+ * 
+ */
+springbootApp.directive('ngValid', ['$http', function ($http) {
+	return {
+	    require: 'ngModel',
+	    link: function (scope, elem, attrs, ctrl) {
+	    	elem.on('blur', function (evt) {
+	    		scope.$apply(function () {
+	    			if (elem.val()) {
+	    				$http({ 
+		    				method: 'POST', 
+		    				url: 'card-inventory/validate', 
+		    				data: { 
+		    					cardId:	elem.val(), 
+		    					cardType: attrs.ngValid 
+		    				} 
+		    			}).success(function(data, status, headers, config) {
+		    				ctrl.$setValidity('valid', data.status);
+		    			});
+	    			}
+	    		});
+	    	});
+	    }
+	}
+}]);
+
+springbootApp.run(['$route', '$rootScope', '$location', 'datepickerPopupConfig', 'applicationSetting', function ($route, $rootScope, $location, datepickerPopupConfig, applicationSetting) {
+    var original = $location.path;
+    $rootScope.userLoggedIn = false;
+    
+    datepickerPopupConfig.showButtonBar = false;
+    applicationSetting.set("pageSize", 10);
+    console.log("pageSize=" + applicationSetting.get("pageSize"));
+    $location.path = function (path, reload) {
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };
+}])
+
+
+
+
+
+$(document).ready(function() {
+	
+})
+
