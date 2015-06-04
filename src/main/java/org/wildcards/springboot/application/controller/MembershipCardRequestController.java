@@ -10,7 +10,7 @@ import org.wildcards.springboot.application.form.request.MembershipCardRequestFo
 import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
 
 @RestController
-@RequestMapping("/request")
+@RequestMapping("/membershipCardRequest")
 public class MembershipCardRequestController extends AbstractRestRequestHandler {
 
 	/**

@@ -45,6 +45,15 @@ public class ParameterMap {
 	
 	/**
 	 * 
+	 * @param key
+	 * @return
+	 */
+	public void remove(String key) {
+		mapOfParameters.remove(key);
+	}
+	
+	/**
+	 * 
 	 */
 	public void clear() {
 		mapOfParameters.clear();

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import org.wildcards.springboot.application.constant.Parameter;
 import org.wildcards.springboot.application.dto.InventoryDetails;
 import org.wildcards.springboot.application.dto.MembershipCardDTO;
 import org.wildcards.springboot.application.dto.MembershipCardListItem;
+import org.wildcards.springboot.application.enumeration.TaskType;
 import org.wildcards.springboot.application.form.inventory.ListMembershipCardForm;
 import org.wildcards.springboot.application.form.inventory.MembershipCardAssignmentForm;
 import org.wildcards.springboot.application.form.inventory.MembershipCardDiscardForm;
@@ -29,7 +32,9 @@ import org.wildcards.springboot.application.form.inventory.MembershipCardRequest
 import org.wildcards.springboot.domain.model.Chapter;
 import org.wildcards.springboot.domain.model.MemberInformation;
 import org.wildcards.springboot.domain.model.MembershipCard;
+import org.wildcards.springboot.domain.model.MembershipCardRequest;
 import org.wildcards.springboot.domain.model.ParameterMap;
+import org.wildcards.springboot.domain.model.Task;
 import org.wildcards.springboot.domain.repository.MembershipCardRepository;
 import org.wildcards.springboot.domain.service.Service;
 import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
@@ -62,7 +67,7 @@ public class InventoryController extends AbstractRestRequestHandler {
 	 */
 	@Autowired
 	@Qualifier("requestMembershipCardService")
-	private Service<Long> requestMembershipCards;
+	private Service<MembershipCardRequest> requestMembershipCards;
 	
 	/**
 	 * 
@@ -70,6 +75,13 @@ public class InventoryController extends AbstractRestRequestHandler {
 	@Autowired
 	@Qualifier("discardMembershipCardService")
 	private Service<Long> discardMembershipCards;
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	@Qualifier("createTaskService")
+	private Service<Task> createTaskService;
 	
 	/**
 	 * 
@@ -272,7 +284,7 @@ public class InventoryController extends AbstractRestRequestHandler {
 		return dto;
 	}
 	
-	
+	@Transactional
 	@RequestMapping(
 			method=RequestMethod.POST,
 			value="/request")
@@ -296,7 +308,12 @@ public class InventoryController extends AbstractRestRequestHandler {
 		params.add(Parameter.USER_ID, userId);
 		params.add(Parameter.CHAPTER_ID, chapterId);
 		
-		requestMembershipCards.execute(params);
+		MembershipCardRequest request = requestMembershipCards.execute(params);
+		
+		params.remove(Parameter.CARDS_REQUESTED);
+		params.add(Parameter.TASK_TYPE, TaskType.REQUEST_MEMBERSHIP_CARDS);
+		params.add(Parameter.REQUEST_ID, request.getId());
+		createTaskService.execute(params);
 	}
 	
 }

@@ -14,4 +14,6 @@ public interface Parameter {
 	String REASON = "reason";
 	String CARD_NUMBER = "card.number";
 	String CARDS_REQUESTED = "cards.requested";
+	String TASK_TYPE = "task.type";
+	String REQUEST_ID = "request.id";
 }

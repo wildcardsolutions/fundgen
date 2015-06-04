@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.wildcards.springboot.domain.factory.TaskFactory;
 import org.wildcards.springboot.domain.model.Chapter;
 import org.wildcards.springboot.domain.model.MembershipCardRequest;
 import org.wildcards.springboot.domain.model.MembershipCardType;
 import org.wildcards.springboot.domain.model.Officer;
+import org.wildcards.springboot.domain.model.Task;
 import org.wildcards.springboot.domain.service.Service;
 import org.wildcards.springboot.domain.service.member.RegisterMemberService;
 import org.wildcards.springboot.domain.service.member.validation.CardIdAllocatedToChapter;
@@ -29,6 +31,7 @@ import org.wildcards.springboot.domain.service.membershipcard.validation.CardSer
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesNotYetAssignedToMember;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesNotYetDiscarded;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesAllocatedToChapter;
+import org.wildcards.springboot.domain.service.task.CreateTaskService;
 import org.wildcards.springboot.domain.service.validation.Validator;
 import org.wildcards.springboot.infrastructure.persistence.StoredProcedureService;
 
@@ -59,6 +62,11 @@ public class ServiceConfiguration {
 	@Autowired 
 	private JpaRepository<MembershipCardType, Long> cardTypeRepository;
 	
+	@Autowired 
+	private JpaRepository<Task, Long> taskRespository;
+	
+	@Autowired 
+	private TaskFactory taskFactory;
 	
 	/**
 	 * 
@@ -110,7 +118,7 @@ public class ServiceConfiguration {
 	}
 	
 	@Bean
-	public Service<Long> requestMembershipCardService() {
+	public Service<MembershipCardRequest> requestMembershipCardService() {
 		List<Validator> listOfValidators = new ArrayList<Validator>();
 		return new RequestMembershipCardService(
 				listOfValidators, 
@@ -118,6 +126,15 @@ public class ServiceConfiguration {
 				chapterRepository,
 				officerRepository,
 				cardTypeRepository);
+	}
+	
+	@Bean
+	public Service<Task> createTaskService() {
+		List<Validator> listOfValidators = new ArrayList<Validator>();
+		return new CreateTaskService(
+				listOfValidators, 
+				taskFactory,
+				taskRespository);
 	}
 	
 	@Bean

@@ -18,7 +18,6 @@ import org.wildcards.springboot.domain.model.ParameterMap;
 import org.wildcards.springboot.domain.repository.MembershipCardTypeRepository;
 import org.wildcards.springboot.domain.service.AbstractService;
 import org.wildcards.springboot.domain.service.validation.Validator;
-import org.wildcards.springboot.infrastructure.persistence.StoredProcedureService;
 
 
 /**
@@ -26,13 +25,8 @@ import org.wildcards.springboot.infrastructure.persistence.StoredProcedureServic
  * @author jojo
  *
  */
-public class RequestMembershipCardService extends AbstractService<Long> {
+public class RequestMembershipCardService extends AbstractService<MembershipCardRequest> {
 
-	/**
-	 * 
-	 */
-	private static final String REQUEST_MEMBERSHIP_CARDS = null;
-	
 	/**
 	 * 
 	 */
@@ -74,9 +68,9 @@ public class RequestMembershipCardService extends AbstractService<Long> {
 	/**
 	 * 
 	 */
-	@Transactional
+	
 	@Override
-	public Long doExecute(ParameterMap parameterMap) {
+	public MembershipCardRequest doExecute(ParameterMap parameterMap) {
 		@SuppressWarnings({ "unchecked" })
 		Map<String, Long> requestedCards = (Map<String, Long>) parameterMap.get(Parameter.CARDS_REQUESTED);
 		Long chapterId = (Long) parameterMap.get(Parameter.CHAPTER_ID);
@@ -92,9 +86,9 @@ public class RequestMembershipCardService extends AbstractService<Long> {
 		request.setOfficer(officerRepository.findOne(userId));
 		request.setRequestedCards(generateRequestedCards(requestedCards));
 		
-		requestRepository.save(request);
+		request = requestRepository.save(request);
 		
-		return null;
+		return request;
 	}
 
 	/**
