@@ -37,6 +37,14 @@ define(
 		                    }
 						}
 					})
+					.when("/mychapter", {
+						templateUrl: "resources/app/usecase/my-chapter/my-chapter.html",
+						resolve : {
+							load:  function ($q, $rootScope) {
+		                        return resolveDependencies($q, $rootScope, ['my-chapter']);
+		                    }
+						}
+					})
 					.when("/tasks/mytasks", {
 						templateUrl: "resources/app/usecase/tasks/my-tasks/my-tasks.html",
 						resolve : {

@@ -26,6 +26,9 @@ public interface MembershipCardTypeRepository extends JpaRepository<MembershipCa
 	@Query("SELECT c FROM MembershipCardType c WHERE c.name LIKE CONCAT('%', :searchString, '%') OR c.prefix LIKE CONCAT('%', :searchString, '%')")
 	Page<MembershipCardType> searchFor(@Param("searchString") String searchString, Pageable pageable);
 	
+	@Query("SELECT c FROM MembershipCardType c WHERE c.name = :searchString")
+	MembershipCardType getByName(@Param("searchString") String searchString);
+	
 	/**
 	 * 
 	 * @param cardTypeId

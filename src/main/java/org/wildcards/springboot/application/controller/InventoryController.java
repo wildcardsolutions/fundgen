@@ -61,10 +61,19 @@ public class InventoryController extends AbstractRestRequestHandler {
 	 * 
 	 */
 	@Autowired
+	@Qualifier("requestMembershipCardService")
+	private Service<Long> requestMembershipCards;
+	
+	/**
+	 * 
+	 */
+	@Autowired
 	@Qualifier("discardMembershipCardService")
 	private Service<Long> discardMembershipCards;
 	
-	
+	/**
+	 * 
+	 */
 	@Autowired
 	private MembershipCardRepository repository;
 	
@@ -274,14 +283,20 @@ public class InventoryController extends AbstractRestRequestHandler {
 			@RequestBody MembershipCardRequestForm form) {
 		
 		long userId = 1;
-		long chapterId = 1;
-			
-			for(String key : form.getCards().keySet()) {
-				System.out.println(key + "=" + form.getCards().get(key));
-			}
+		long chapterId = 2;
 		
+		Map<String, Long> requestedCards = new HashMap<String, Long>();
+		for(String key : form.getCards().keySet()) {
+			System.out.println(key + "=" + form.getCards().get(key));
+			requestedCards.put(key, form.getCards().get(key));
+		}
 		
+		ParameterMap params = new ParameterMap();
+		params.add(Parameter.CARDS_REQUESTED, requestedCards);
+		params.add(Parameter.USER_ID, userId);
+		params.add(Parameter.CHAPTER_ID, chapterId);
 		
+		requestMembershipCards.execute(params);
 	}
 	
 }

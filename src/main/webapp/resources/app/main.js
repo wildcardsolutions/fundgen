@@ -20,6 +20,7 @@ require.config({
 		'alertify'								: '../js/alertify/alertify.min',
 		'app' 									: 'app',
 		'my-account'							: 'usecase/my-account/my-account-controller',
+		'my-chapter'							: 'usecase/my-chapter/my-chapter-controller',
 		'my-tasks'								: 'usecase/tasks/my-tasks/my-tasks-controller',
 		'group-tasks'							: 'usecase/tasks/group-tasks/group-tasks-controller',
 		'task-history'							: 'usecase/tasks/task-history/task-history-controller',

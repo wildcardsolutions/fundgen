@@ -83,11 +83,12 @@ define(
 								alertify.confirm(msg, function(e) {
 									if (e) {
 										for (var i = 0; i < $scope.requestForm.cards.length; i++ ) {
-						 				if($scope.requestForm.cards[i].cardType === request.cardType ) {
-						 					$scope.requestForm.cards.splice(i, 1);     
-						 					break;
-						 				}
-						 			}
+							 				if($scope.requestForm.cards[i].cardType === request.cardType ) {
+							 					$scope.requestForm.cards.splice(i, 1);    
+							 					$scope.$apply();
+							 					break;
+							 				}
+							 			}
 									}
 								});
 							}
@@ -120,13 +121,15 @@ define(
 											console.log(form);
 											cardInventoryService.request(form)
 												.success(function(response) {
+													alertify.alert("Request for membership cards successfully submitted.");
+													
 													$scope.requestForm = {}
 								 					$scope.requestForm.cards = [];
 													vm.reset();
-					
 												})
-												.error(function() {
-													
+												.error(function(data, status, headers, config) {
+													alertify.alert("Failed: " + data.description);
+													vm.reset();
 												});
 						 					
 										

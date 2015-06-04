@@ -6,6 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.wildcards.springboot.domain.model.Chapter;
+import org.wildcards.springboot.domain.model.MembershipCardRequest;
+import org.wildcards.springboot.domain.model.MembershipCardType;
+import org.wildcards.springboot.domain.model.Officer;
 import org.wildcards.springboot.domain.service.Service;
 import org.wildcards.springboot.domain.service.member.RegisterMemberService;
 import org.wildcards.springboot.domain.service.member.validation.CardIdAllocatedToChapter;
@@ -17,6 +22,7 @@ import org.wildcards.springboot.domain.service.membershipcard.DiscardMembershipC
 import org.wildcards.springboot.domain.service.membershipcard.InventoryLevelService;
 import org.wildcards.springboot.domain.service.membershipcard.ListMembershipCardService;
 import org.wildcards.springboot.domain.service.membershipcard.RegisterMembershipCardService;
+import org.wildcards.springboot.domain.service.membershipcard.RequestMembershipCardService;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesExist;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesNotExist;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesNotYetAllocatedToChapter;
@@ -39,6 +45,20 @@ public class ServiceConfiguration {
 	 */
 	@Autowired
 	private StoredProcedureService storedProcedureService;
+	
+	
+	@Autowired 
+	private JpaRepository<Chapter, Long> chapterRepository;
+	
+	@Autowired 
+	private JpaRepository<Officer, Long> officerRepository;
+	
+	@Autowired 
+	private JpaRepository<MembershipCardRequest, Long> requestRepository;
+	
+	@Autowired 
+	private JpaRepository<MembershipCardType, Long> cardTypeRepository;
+	
 	
 	/**
 	 * 
@@ -89,6 +109,16 @@ public class ServiceConfiguration {
 		return new ListMembershipCardService(listOfValidators, storedProcedureService);
 	}
 	
+	@Bean
+	public Service<Long> requestMembershipCardService() {
+		List<Validator> listOfValidators = new ArrayList<Validator>();
+		return new RequestMembershipCardService(
+				listOfValidators, 
+				requestRepository,
+				chapterRepository,
+				officerRepository,
+				cardTypeRepository);
+	}
 	
 	@Bean
 	public Service<Long> registerMemberService() {
@@ -99,4 +129,6 @@ public class ServiceConfiguration {
 		listOfValidators.add(new CardIdNotYetAssignedToMember(storedProcedureService));
 		return new RegisterMemberService(listOfValidators, storedProcedureService);
 	}
+	
+	
 }
