@@ -22,7 +22,7 @@ require.config({
 		'my-account'							: 'usecase/my-account/my-account-controller',
 		'my-chapter'							: 'usecase/my-chapter/my-chapter-controller',
 		'my-tasks'								: 'usecase/tasks/my-tasks/my-tasks-controller',
-		'group-tasks'							: 'usecase/tasks/group-tasks/group-tasks-controller',
+		'chapter-tasks'							: 'usecase/tasks/chapter-tasks/chapter-tasks-controller',
 		'task-history'							: 'usecase/tasks/task-history/task-history-controller',
 		'membership-import' 					: 'usecase/membership/import/membership-import-controller',
 		'membership-registration' 				: 'usecase/membership/registration/membership-registration-controller',

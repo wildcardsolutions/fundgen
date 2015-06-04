@@ -53,11 +53,11 @@ define(
 		                    }
 						}
 					})
-					.when("/tasks/grouptasks", {
-						templateUrl: "resources/app/usecase/tasks/group-tasks/group-tasks.html",
+					.when("/tasks/chaptertasks", {
+						templateUrl: "resources/app/usecase/tasks/chapter-tasks/chapter-tasks.html",
 						resolve : {
 							load:  function ($q, $rootScope) {
-		                        return resolveDependencies($q, $rootScope, ['group-tasks']);
+		                        return resolveDependencies($q, $rootScope, ['chapter-tasks']);
 		                    }
 						}
 					})
