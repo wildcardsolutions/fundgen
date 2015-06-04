@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.wildcards.springboot.domain.model.Chapter;
 import org.wildcards.springboot.domain.model.MembershipCardType;
 import org.wildcards.springboot.domain.repository.MembershipCardTypeRepository;
+import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
 
 /**
  * 
@@ -26,7 +27,7 @@ import org.wildcards.springboot.domain.repository.MembershipCardTypeRepository;
  */
 @RestController
 @RequestMapping("/api/membershipCardType")
-public class MembershipCardTypeController {
+public class MembershipCardTypeController extends AbstractRestRequestHandler {
 	
 	/**
 	 * 

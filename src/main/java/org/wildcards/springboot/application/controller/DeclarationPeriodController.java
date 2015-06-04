@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.wildcards.springboot.domain.model.DeclarationPeriod;
 import org.wildcards.springboot.domain.model.SystemSetting;
 import org.wildcards.springboot.domain.repository.SettingsRepository;
+import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
 
 /**
  * 
@@ -23,7 +24,7 @@ import org.wildcards.springboot.domain.repository.SettingsRepository;
  */
 @RestController
 @RequestMapping("/api/declarationPeriods")
-public class DeclarationPeriodController {
+public class DeclarationPeriodController extends AbstractRestRequestHandler {
 
 	/**
 	 * 

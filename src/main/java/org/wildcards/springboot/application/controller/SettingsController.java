@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.wildcards.springboot.domain.model.SystemSetting;
 import org.wildcards.springboot.domain.repository.SettingsRepository;
+import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
 import org.wildcards.springboot.infrastructure.security.model.Role;
 
 /**
@@ -26,7 +27,7 @@ import org.wildcards.springboot.infrastructure.security.model.Role;
  */
 @RestController
 @RequestMapping("/api/settings")
-public class SettingsController {
+public class SettingsController extends AbstractRestRequestHandler {
 
 	/**
 	 * 

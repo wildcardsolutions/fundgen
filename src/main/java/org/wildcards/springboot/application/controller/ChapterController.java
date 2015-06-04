@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.wildcards.springboot.domain.model.Chapter;
 import org.wildcards.springboot.domain.repository.ChapterRepository;
+import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
 
 /**
  * 
@@ -25,7 +26,7 @@ import org.wildcards.springboot.domain.repository.ChapterRepository;
  */
 @RestController
 @RequestMapping("/api/chapter")
-public class ChapterController {
+public class ChapterController extends AbstractRestRequestHandler {
 	
 	/**
 	 * 
