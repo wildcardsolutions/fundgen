@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
@@ -19,24 +20,30 @@ public class AbstractModel {
 	@Column(nullable = false, updatable = false)
 	private long id;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Date dateCreated;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Long createdBy;
 	
 	@Column(nullable = true, columnDefinition="boolean default false")
 	private boolean deleted;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Date dateDeleted;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Long deletedBy;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Date dateModified;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Long modifiedBy;
 

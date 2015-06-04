@@ -1,8 +1,12 @@
 package org.wildcards.springboot.application.enumeration;
 
 public enum RequestMembershipCardStatus {
+	
 	NEW(1, "New"),
-	DONE(2, "Done")
+	FOR_APPROVAL(2, "For Approval"),
+	CLOSED(14, "Closed"),
+	DONE(15, "Done")
+	
 	;
 	
 	private int id;

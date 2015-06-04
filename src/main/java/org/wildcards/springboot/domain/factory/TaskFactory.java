@@ -43,6 +43,7 @@ public class TaskFactory {
 		task.setDateCreated(new Date());
 		task.setCreatedBy(officerId);
 		task.setTaskType(taskType.getDescription());
+		task.setTaskStatus(RequestMembershipCardStatus.FOR_APPROVAL.getDescription());
 		task.setRequestId(requestId);
 		
 		TaskHistory history = new TaskHistory();

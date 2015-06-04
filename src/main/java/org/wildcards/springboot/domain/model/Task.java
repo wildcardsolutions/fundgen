@@ -5,10 +5,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +16,9 @@ public class Task extends AbstractModel {
 	
 	@Column(name="task_type")
 	private String taskType;
+	
+	@Column(name="task_status")
+	private String taskStatus;
 	
 	@Column(name="request_id")
 	private long requestId;
@@ -49,5 +51,13 @@ public class Task extends AbstractModel {
 
 	public void setRequestId(long requestId) {
 		this.requestId = requestId;
+	}
+
+	public String getTaskStatus() {
+		return taskStatus;
+	}
+
+	public void setTaskStatus(String taskStatus) {
+		this.taskStatus = taskStatus;
 	}
 }

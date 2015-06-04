@@ -60,27 +60,33 @@ public class Role {
 	@Column(nullable = false)
 	private String roleDescription;
 	
+	@JsonIgnore
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date dateCreated;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Long createdBy;
 	
 	@Column(nullable = true, columnDefinition="boolean default false")
 	private boolean deleted;
 	
+	@JsonIgnore
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date dateDeleted;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Long deletedBy;
 	
+	@JsonIgnore
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date dateModified;
 	
+	@JsonIgnore
 	@Column(nullable = true)
 	private Long modifiedBy;
 	
