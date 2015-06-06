@@ -61,7 +61,8 @@ require.config({
 		'roles-repository' 						: 'repositories/roles-repository',
 		'settings-repository' 					: 'repositories/settings-repository',
 		'card-inventory-service' 				: 'services/card-inventory-service',
-		'declaration-period-service' 			: 'services/declaration-period-service'	
+		'declaration-period-service' 			: 'services/declaration-period-service',
+		'task-service' 							: 'services/task-service'
 	},
 	shim : {
 		'angularjs': {

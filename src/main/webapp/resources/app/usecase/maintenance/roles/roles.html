@@ -155,7 +155,7 @@
 									<button ng-disabled="role.deleted" ng-click="ctrl.access(role)" type="button" class="btn btn-default btn-sm">
 							    		<i class="fa fa-key"></i>
 							    	</button>
-									<button ng-disabled="chapter.deleted" ng-click="ctrl.edit(role) type="button" class="btn btn-default btn-sm">
+									<button ng-disabled="chapter.deleted" ng-click="ctrl.edit(role)" type="button" class="btn btn-default btn-sm">
 							    		<i class="fa fa-pencil-square-o"></i>
 							    	</button>
 							    	<button  ng-disabled="chapter.deleted" ng-click="ctrl.delete(role)" type="button" class="btn btn-default btn-sm">
@@ -166,34 +166,11 @@
 							    	</button>
 								</div>
 							</div>
-<!-- 					    	<button ng-disabled="role.deleted" ng-click="ctrl.access(role)" type="button" class="btn btn-success btn-xs"> -->
-<!-- 					    		<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> -->
-<!-- 					    		&nbsp;&nbsp;Access Rights -->
-<!-- 					    	</button>&nbsp; -->
-<!-- 					    	<button ng-disabled="role.deleted" ng-click="ctrl.edit(role)" type="button" class="btn btn-primary btn-xs"> -->
-<!-- 					    		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
-<!-- 					    		&nbsp;&nbsp;Edit -->
-<!-- 					    	</button>&nbsp; -->
-<!-- 					    	<button ng-disabled="role.deleted" ng-click="ctrl.delete(role)" type="button" class="btn btn-danger btn-xs"> -->
-<!-- 					    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
-<!-- 					    		&nbsp;&nbsp;Delete -->
-<!-- 					    	</button> -->
-<!-- 					    	<button ng-disabled="!role.deleted" ng-click="ctrl.undelete(role)" type="button" class="btn btn-default btn-xs"> -->
-<!-- 					    		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> -->
-<!-- 					    		&nbsp;&nbsp;Undelete -->
-<!-- 					    	</button> -->
 					    </td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		
-<!-- 		<div class="row"> -->
-<!-- 			<div class="text-center"> -->
-<!-- 				<paginate current-page="page.index" total-page="page.count" update-page-method="updatePage(page)"/> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		
 		<!-- footer -->
 		<div class="panel-footer">
 			<paginate current-page="page.index" total-page="page.count" update-page-method="updatePage(page)"/>

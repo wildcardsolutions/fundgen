@@ -23,6 +23,8 @@ public class Task extends AbstractModel {
 	@Column(name="request_id")
 	private long requestId;
 	
+//	@Column(name="task_status")
+//	private String taskStatus;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name= "task_id", nullable=false)

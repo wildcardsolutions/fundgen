@@ -1,11 +1,87 @@
-
+<!--  -->
 <div ng-controller="chapterTasksController as ctrl">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<label class="controller-title"><i class="fa fa-tags fa-2x"></i> Chapter Tasks</label>
+			<label class="controller-title">
+				<i class="fa fa-tags fa-2x"></i>&nbsp;Chapter Tasks
+			</label>
 		</div>
 	  	<div class="panel-body">
-	  		
+	  		<div class="row">
+				<div class="col-sm-6">
+					<div class="btn-group" role="group" >
+						<div class="dropdown btn-group">
+						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						   	<i class="fa fa-list-alt"></i>
+						  	 Page Size: <em>{{page.size}}</em>&nbsp;&nbsp;<span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						    <li role="presentation"><a href="#" ng-click="updatePageSize($event, 5)">5</a></li>
+						   	<li role="presentation"><a href="#" ng-click="updatePageSize($event, 10)">10</a></li>
+						   	<li role="presentation"><a href="#" ng-click="updatePageSize($event, 25)">25</a></li>
+						   	<li role="presentation"><a href="#" ng-click="updatePageSize($event, 50)">50</a></li>
+						   	<li role="presentation"><a href="#" ng-click="updatePageSize($event, 100)">100</a></li>
+						  </ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4  pull-right">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search for..." ng-model="searchString"  >
+				      	<span class="input-group-btn">
+				        	<button class="btn btn-default" type="button" ng-click="ctrl.search(searchString)">
+				        		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				        	</button>
+					        <button class="btn btn-default" type="button" ng-click="ctrl.clearSearch()">
+					        	<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+					        </button>
+				      	</span>
+				    </div>
+				</div>
+					
+				<div class="spacer"></div>
+				<div class="spacer"></div>
+					
+				<table id="chapterList" class="table table-striped table-hover table-condensed">
+					<thead>
+						<tr class="table-header">
+							<td></td>
+							<td>ID</td>
+							<td>Task Type</td>
+							<td>Status</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="task in tasks | filter:{ deleted: false}">
+							<td></td>
+						    <td>{{task.id}}</td>
+						    <td>{{task.taskType}}</td>
+						    <td>{{task.taskStatus}}</td>
+						    <td>
+						    	<div class="btn-toolbar" role="toolbar" >
+									<div class="btn-group" aria-label="First group" role="group">
+										<button ng-click="ctrl.view(task)" type="button" class="btn btn-default btn-sm">
+								    		<i class="fa fa-eye"></i>
+								    	</button>
+								    	<button ng-click="ctrl.cancel(task, $index)" type="button" class="btn btn-default btn-sm">
+								    		<i class="fa fa-times"></i>
+								    	</button>
+								    	<!-- ng-disabled="task.taskStatus=='Closed' || task.taskStatus=='Done'" -->
+									</div>
+								</div>
+						    </td>
+						  </tr>
+					</tbody>
+				</table>
+			
+
+			</div>
+		</div>
+		<div class="panel-footer" >
+			<div class="span12 pagination-centered">
+				<paginate current-page="page.index" total-page="page.count" update-page-method="updatePage(page)"/>
+			</div>
 		</div>
 	</div>
 </div>

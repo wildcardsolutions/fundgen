@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.wildcards.springboot.application.constant.Parameter;
+import org.wildcards.springboot.domain.model.ParameterMap;
 import org.wildcards.springboot.domain.model.Task;
 import org.wildcards.springboot.domain.repository.TaskRepository;
+import org.wildcards.springboot.domain.service.Service;
 import org.wildcards.springboot.domain.service.validation.ValidationException;
 import org.wildcards.springboot.infrastructure.rest.AbstractRestRequestHandler;
 
@@ -35,6 +39,40 @@ public class TaskController extends AbstractRestRequestHandler {
 	 */
 	@Autowired
 	private TaskRepository taskRepository;
+	
+	@Autowired
+	@Qualifier("cancelTaskService")
+	private Service<Task> cancelTaskService;
+	
+	
+	@RequestMapping(
+			value = "/getPageCountBySize/{size}",
+			method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+    public Object getPageCountBySize(
+    		@PathVariable(value="size") int size) {
+		
+		long count = taskRepository.getCount();
+		long mod = count % size;
+		long page = (count / size) + (mod == 0 ? 0 : 1);
+		
+		return "{\"pages\" : \"" + page + "\"}";
+    }
+	
+	@RequestMapping(
+			value = "/getPageCountBySize/{size}/{searchString}",
+			method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+    public Object getPageCountBySize(
+    		@PathVariable(value="size") int size, 
+    		@PathVariable(value="searchString") String searchString) {
+		
+		long count = taskRepository.getCount(searchString);
+		long mod = count % size;
+		long page = (count / size) + (mod == 0 ? 0 : 1);
+		
+		return "{\"pages\" : \"" + page + "\"}";
+    }
 	
 	@RequestMapping(
 			method=RequestMethod.GET)
@@ -61,7 +99,7 @@ public class TaskController extends AbstractRestRequestHandler {
 		
 		if ("all".equalsIgnoreCase(type)) {
 			pagedResult = taskRepository.findAll(new PageRequest(page-1, size));
-		} else if ("group".equalsIgnoreCase(type)) {
+		} else if ("chapter".equalsIgnoreCase(type)) {
 			pagedResult = taskRepository.getTasksByChapter(chapterId, new PageRequest(page-1, size));
 		} else if ("my".equalsIgnoreCase(type)) {
 			pagedResult = taskRepository.getTasksByOfficer(userId, new PageRequest(page-1, size));
@@ -80,5 +118,21 @@ public class TaskController extends AbstractRestRequestHandler {
     }
 	
 	
-	
+	@RequestMapping(
+			value = "/cancel/{taskId}",
+			method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+    public void cancelTask(
+    		@PathVariable(value="taskId") long taskId) {
+		
+		long chapterId = 2;
+		long userId = 1;
+
+		ParameterMap params = new ParameterMap();
+		params.add(Parameter.TASK_ID, taskId);
+		params.add(Parameter.CHAPTER_ID, chapterId);
+		params.add(Parameter.USER_ID, userId);
+		
+		cancelTaskService.execute(params);
+    }
 }

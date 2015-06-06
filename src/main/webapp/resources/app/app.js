@@ -58,7 +58,13 @@ define(
 						resolve : {
 							load:  function ($q, $rootScope) {
 		                        return resolveDependencies($q, $rootScope, ['chapter-tasks']);
-		                    }
+		                    },
+		                    init : function($http, applicationSetting) {
+								return $http.get("/api/task/getPageCountBySize/" + applicationSetting.get("pageSize")).then(function(result) {
+									applicationSetting.set("chapterTaskPageCount", result.data.pages);
+									return applicationSetting.get("chapterTaskPageCount");
+						        });
+							}
 						}
 					})
 					.when("/tasks/taskhistory", {
@@ -66,7 +72,13 @@ define(
 						resolve : {
 							load:  function ($q, $rootScope) {
 		                        return resolveDependencies($q, $rootScope, ['task-history']);
-		                    }
+		                    },
+		                    init : function($http, applicationSetting) {
+								return $http.get("/api/task/getPageCountBySize/" + applicationSetting.get("pageSize")).then(function(result) {
+									applicationSetting.set("historyTaskPageCount", result.data.pages);
+									return applicationSetting.get("historyTaskPageCount");
+						        });
+							}
 						}
 					})
 					.when("/membership/import", {

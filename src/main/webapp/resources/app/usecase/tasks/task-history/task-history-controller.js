@@ -10,9 +10,9 @@ define(
 		 	'paging-directive'
 		], 
 		function (app) {
-			console.log("registering controller: chapterTasksController");
+			console.log("registering controller: taskHistoryController");
 			app.register.controller(
-					'chapterTasksController', 
+					'taskHistoryController', 
 					[
 					 	'$scope', 
 					 	'$dialogs',
@@ -25,7 +25,7 @@ define(
 					 		$scope.tasks = {};
 					 		$scope.page = {};
 					 		
-					 		$scope.page.count = applicationSetting.get("chapterTaskPageCount");
+					 		$scope.page.count = applicationSetting.get("taskHistoryPageCount");
 					 		$scope.page.index = 1;
 					 		$scope.page.size = applicationSetting.get("pageSize") | 10;
 					 		$scope.searchString = null;
@@ -33,7 +33,7 @@ define(
 							loadPage($scope.page.index, $scope.page.size, $scope.searchString);
 					 		
 							function loadPage(page, size, searchString) {
-								taskService.getChapterTaskPage(page, size, searchString)
+								taskService.getTaskHistoryPage(page, size, searchString)
 									.success(function (response) {
 										$scope.tasks = response.pageContent;
 										$scope.page.count = response.totalPages;

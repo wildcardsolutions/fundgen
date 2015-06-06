@@ -31,6 +31,7 @@ import org.wildcards.springboot.domain.service.membershipcard.validation.CardSer
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesNotYetAssignedToMember;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesNotYetDiscarded;
 import org.wildcards.springboot.domain.service.membershipcard.validation.CardSeriesAllocatedToChapter;
+import org.wildcards.springboot.domain.service.task.CancelTaskService;
 import org.wildcards.springboot.domain.service.task.CreateTaskService;
 import org.wildcards.springboot.domain.service.validation.Validator;
 import org.wildcards.springboot.infrastructure.persistence.StoredProcedureService;
@@ -135,6 +136,16 @@ public class ServiceConfiguration {
 				listOfValidators, 
 				taskFactory,
 				taskRespository);
+	}
+	
+	@Bean
+	public Service<Task> cancelTaskService() {
+		List<Validator> listOfValidators = new ArrayList<Validator>();
+		return new CancelTaskService(
+				listOfValidators, 
+				taskRespository,
+				chapterRepository,
+				officerRepository);
 	}
 	
 	@Bean
