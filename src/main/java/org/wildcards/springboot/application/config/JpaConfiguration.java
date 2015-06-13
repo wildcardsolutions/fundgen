@@ -24,7 +24,11 @@ import org.springframework.orm.jpa.persistenceunit.PersistenceUnitManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
+/**
+ * 
+ * @author jojo
+ *
+ */
 @Configuration
 @PropertySource(value = "classpath:application.properties") //Loading the application.properties
 @EnableJpaRepositories(basePackages = {"org.wildcards.springboot.domain.repository",  "org.wildcards.springboot.infrastructure.security.repository"}) 
@@ -42,6 +46,9 @@ public class JpaConfiguration implements EnvironmentAware {
 	 */
 	private RelaxedPropertyResolver jpaPropertyResolver;
 	 
+	/**
+	 * 
+	 */
 	@Override
     public void setEnvironment(Environment environment) {
         this.jpaPropertyResolver = new RelaxedPropertyResolver(environment, "spring.jpa.");

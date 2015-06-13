@@ -48,8 +48,6 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 		System.out.println("principal=" + authentication.getPrincipal());
 		System.out.println("credentials=" + authentication.getCredentials());
 		
-		System.out.println(System.getProperty("LOG_FILE"));
-		
 		Optional<Object> username = Optional.ofNullable(authentication.getPrincipal());
 		Optional<Object> password = Optional.ofNullable(authentication.getCredentials());
 		logger.info("username=" + username.get().toString());
@@ -61,8 +59,9 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 		throwExceptionIfPasswordNotEqual(user.getPassword(), password.get().toString());
 	    System.out.println("test ok");
 	    
+	    System.out.println("isAuthenticated=" + authentication.isAuthenticated());
 	    
-		return null;
+		return authentication;
 	}
 
 	
