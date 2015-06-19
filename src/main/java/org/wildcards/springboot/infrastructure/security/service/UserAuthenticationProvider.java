@@ -61,6 +61,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 	    
 	    System.out.println("isAuthenticated=" + authentication.isAuthenticated());
 	    
+
+	    
 		return authentication;
 	}
 

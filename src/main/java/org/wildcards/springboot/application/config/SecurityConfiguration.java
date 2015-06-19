@@ -21,6 +21,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -44,7 +45,7 @@ import org.wildcards.springboot.infrastructure.security.service.UserAuthenticati
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 //@Order(0)
-@Order(1)
+//@Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -72,6 +73,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http
 			.httpBasic()
+		.and()
+			.logout()
 		.and()
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
@@ -142,14 +145,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(userAuthenticationProvider).eraseCredentials(false);
+//    	//auth.userDetailsService(userDetailsService);
+//    }
+    
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(userAuthenticationProvider).eraseCredentials(false);
-    	//auth.userDetailsService(userDetailsService);
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService);
     }
     
-    
-
     
 	
 	

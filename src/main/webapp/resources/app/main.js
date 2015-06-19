@@ -62,7 +62,9 @@ require.config({
 		'settings-repository' 					: 'repositories/settings-repository',
 		'card-inventory-service' 				: 'services/card-inventory-service',
 		'declaration-period-service' 			: 'services/declaration-period-service',
-		'task-service' 							: 'services/task-service'
+		'task-service' 							: 'services/task-service',
+		'user-authentication-service'			: 'services/user-authentication-service',
+		'login-controller'						: 'usecase/login/login-controller',
 	},
 	shim : {
 		'angularjs': {

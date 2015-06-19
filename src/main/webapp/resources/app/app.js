@@ -230,7 +230,6 @@ define(
 						templateUrl: "resources/app/usecase/maintenance/roles/roles.html",
 						resolve : {
 							load:  function ($q, $rootScope) {
-								console.log("loading roles");
 		                        return resolveDependencies($q, $rootScope, ['roles']);
 		                    },
 							init : function($http, applicationSetting) {
@@ -243,8 +242,12 @@ define(
 						}
 					})
 					.when("/login", {
-						controller: "loginController",
-						templateUrl: "resources/app/usecase/login/login.html"
+						templateUrl: "resources/app/usecase/login/login.html",
+						resolve : {
+							load:  function ($q, $rootScope) {
+		                        return resolveDependencies($q, $rootScope, ['login-controller']);
+		                    },
+						}
 					})
 					.otherwise({
 			            redirectTo:'/'
@@ -296,6 +299,7 @@ define(
 						        }
 						        return original.apply($location, [path]);
 						    };
+						  
 					 }])
 
 
