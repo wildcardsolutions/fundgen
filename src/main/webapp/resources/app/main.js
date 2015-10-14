@@ -65,6 +65,7 @@ require.config({
 		'task-service' 							: 'services/task-service',
 		'user-authentication-service'			: 'services/user-authentication-service',
 		'login-controller'						: 'usecase/login/login-controller',
+		'logout-controller'						: 'usecase/logout/logout-controller',
 	},
 	shim : {
 		'angularjs': {
@@ -87,6 +88,7 @@ require.config({
  */
 require(
 		[
+		 	'jquery',
 		 	'angularjs', 
 		 	'app'
 		],

@@ -9,10 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,19 +19,12 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
-import org.wildcards.springboot.infrastructure.security.filter.ResourceAccessFilter;
-import org.wildcards.springboot.infrastructure.security.filter.UserAuthenticationFilter;
-import org.wildcards.springboot.infrastructure.security.service.UserAuthenticationProvider;
 
 /**
  * 
@@ -43,9 +34,6 @@ import org.wildcards.springboot.infrastructure.security.service.UserAuthenticati
 @Configuration
 @EnableWebMvcSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-//@Order(0)
-//@Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -70,20 +58,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		
 		http
 			.httpBasic()
+			//.formLogin()
 		.and()
 			.logout()
+			.logoutSuccessUrl("/#/login")
+			.invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID", "XSRF-TOKEN")
 		.and()
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
-			.anyRequest().authenticated();
+				.antMatchers("/index.html").permitAll()
+				.antMatchers("/login").permitAll()
+			.anyRequest().authenticated()
+		.and()
+			.csrf().csrfTokenRepository(csrfTokenRepository())
+		.and()
+			.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 		
 //		http
 //			.csrf().disable();
 //		
-//		http.addFilterBefore(new ResourceAccessFilter(), LogoutFilter.class);
+//		http.addFilterBefore(new ResourceAccessFilter(), LosgoutFilter.class);
 		
 //		http
 //        	.authorizeRequests().anyRequest().authenticated();
@@ -153,13 +150,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService);
+    	 auth.userDetailsService(userDetailsService);
+    	 //auth.authenticationProvider(userAuthenticationProvider);
+        //auth.userDetailsService(userDetailsService);
     }
     
     
+  
+    
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	private Filter csrfHeaderFilter() {
 		return new OncePerRequestFilter() {
 			@Override
@@ -168,15 +171,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					HttpServletResponse response, 
 					FilterChain filterChain) throws ServletException, IOException {
 				
+				System.out.println("CsrfToken.class.getName()=" + CsrfToken.class.getName());
 				CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 				if (csrf != null) {
+					System.out.println("csrf.getToken()=" + csrf.getToken());
 					Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
+					System.out.println("cookie.getValue()=" + (null!=cookie ? cookie.getValue() : "NULL"));
 					String token = csrf.getToken();
+					System.out.println("cookie == null=" + cookie == null);
+					System.out.println("token != null=" + token != null);
+					System.out.println(" !token.equals(cookie.getValue())=" +  (null!=cookie ? !token.equals(cookie.getValue()) : "false") );
 					if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+						System.out.println("TRUE");
 						cookie = new Cookie("XSRF-TOKEN", token);
 						cookie.setPath("/");
 						response.addCookie(cookie);
 					}
+					
+					
 				}
 				
 				filterChain.doFilter(request, response);
@@ -185,6 +197,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		};
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private CsrfTokenRepository csrfTokenRepository() {
 		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
 		repository.setHeaderName("X-XSRF-TOKEN");

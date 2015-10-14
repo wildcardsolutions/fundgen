@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +35,11 @@ public class ChapterController extends AbstractRestRequestHandler {
 	@Autowired
 	private ChapterRepository repository;
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(
 			value = "/getPageCountBySize/{size}",
-			method=RequestMethod.GET)
+			method=RequestMethod.GET,
+			produces="application/json")
 	@ResponseStatus(HttpStatus.OK)
     public Object getPageCountBySize(
     		@PathVariable(value="size") int size) {
@@ -48,10 +51,11 @@ public class ChapterController extends AbstractRestRequestHandler {
 		return "{\"pages\" : \"" + page + "\"}";
     }
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(
 			value = "/getPageCountBySize/{size}/{searchString}",
-			method=RequestMethod.GET)
+			method=RequestMethod.GET,
+			produces="application/json")
 	@ResponseStatus(HttpStatus.OK)
     public Object getPageCountBySize(
     		@PathVariable(value="size") int size, 

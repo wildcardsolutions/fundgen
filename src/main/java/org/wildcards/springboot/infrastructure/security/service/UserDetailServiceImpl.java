@@ -3,12 +3,12 @@ package org.wildcards.springboot.infrastructure.security.service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.wildcards.springboot.infrastructure.security.model.UserProfile;
 import org.wildcards.springboot.infrastructure.security.repository.UserProfileRepository;
@@ -18,12 +18,18 @@ import org.wildcards.springboot.infrastructure.security.repository.UserProfileRe
  * @author jojo
  *
  */
-@Service
+@Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
+	/**
+	 * 
+	 */
 	@Autowired
 	private UserProfileRepository userRepository;
 	
+	/**
+	 * 
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserProfile person = userRepository.findByUsernameEquals(username);

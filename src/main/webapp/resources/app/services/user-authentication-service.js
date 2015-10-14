@@ -22,16 +22,29 @@ define(
 							  	        + btoa(credentials.username + ":" + credentials.password)
 							  	    } : {};
 							  	    
+//							  	$http.post("/login", $.param(credentials))
+//							  		.success(function(data) {
+//										if (data.name) {
+//											callback(true);
+//										} else {
+//											callback(false);
+//										}
+//									})
+//									.error(function() {
+//										callback(false);
+//									});
+							  	    
 								$http.get("/user",  {headers : headers})
 									.success(function(data) {
+										console.log("data=" + data);
 										if (data.name) {
-											callback(true);
+											callback(true, data);
 										} else {
-											callback(false);
+											callback(false, null);
 										}
 									})
 									.error(function() {
-										callback(false);
+										callback(false, null);
 									});
 							};
 						

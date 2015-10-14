@@ -31,7 +31,7 @@
 <!-- 					                <img width="50" height="50" class="logo" ng-src="resources/img/prc-50px.png"> -->
 <!-- 					            </a> -->
 <!-- 			            	</span> -->
-			              <ul class="nav navbar-nav" ng-show="authenticated">
+			              <ul class="nav navbar-nav" ng-show="authenticated" ng-cloak>
 			                <li class="divider-vertical"></li>
 			                <li><a href="#/myaccount"><i class="fa fa-home fa-2x "></i> My Account</a></li>
 			                <li class="divider-vertical"></li>
@@ -118,14 +118,14 @@
 			                <li class="divider-vertical"></li>
 			                
 			              </ul>
-			              <ul class="nav navbar-nav navbar-right">
+			              <ul class="nav navbar-nav navbar-right" ng-cloak>
 			              	<li>
 			                 <a ng-show="!authenticated" href="#login" class="" data-toggle="dropdown">
 			                    <i class="fa fa-sign-in fa-2x"></i> Login
 			             	 </a>
 			              	</li>
 			              	<li>
-				              <a ng-show="authenticated" href="#" class="" data-toggle="dropdown" ng-click="logout()">
+				              <a ng-show="authenticated" href="" class="" data-toggle="dropdown" ng-click="logout()">
 				                    <i class="fa fa-key fa-2x"></i> Logout
 				              </a>
 				            </li>
